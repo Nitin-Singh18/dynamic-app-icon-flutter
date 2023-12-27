@@ -2,7 +2,7 @@
     <application
         android:label="dynamic_app_icon"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/cuteandroid">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,6 +24,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity-alias
+            android:exported="true"
+            android:icon="@mipmap/pastel"
+            android:enabled="false"
+            android:targetActivity=".MainActivity"
+            android:name=".MainActivityAlias">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

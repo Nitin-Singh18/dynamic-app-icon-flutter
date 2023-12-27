@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,8 +21,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
+const MethodChannel channel = MethodChannel("dynamic_app_icon_channel");
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  Future<void> changeAppIcon(bool isFirstIcon) async {
+    try {
+      String? value = await channel
+          .invokeMethod("changeAppIcon", {"isFirstIcon": isFirstIcon});
+      print(value);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +41,26 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: Container(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    changeAppIcon(true);
+                  },
+                  child: const Text("Big Icon")),
+              ElevatedButton(
+                  onPressed: () {
+                    changeAppIcon(false);
+                  },
+                  child: const Text("Small Icon")),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
